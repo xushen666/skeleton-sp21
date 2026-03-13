@@ -10,12 +10,12 @@ public class IntListExercises {
      */
     public static void addConstant(IntList lst, int c) {
         IntList head = lst;
-        while (head.rest != null) {
+        while (head!= null) {
             head.first += c;
             head = head.rest;
         }
-    }
 
+}
     /**
      * Part B: Buggy method that sets node.first to zero if
      * the max value in the list starting at node has the same
@@ -51,7 +51,7 @@ public class IntListExercises {
      */
     public static boolean firstDigitEqualsLastDigit(int x) {
         int lastDigit = x % 10;
-        while (x > 10) {
+        while (x >= 10) {
             x = x / 10;
         }
         int firstDigit = x % 10;
@@ -71,12 +71,17 @@ public class IntListExercises {
             return false;
         }
 
-        boolean currElemIsPrime = Primes.isPrime(lst.first);
+        boolean hasPrimeInRest = squarePrimes(lst.rest);
 
-        if (currElemIsPrime) {
-            lst.first *= lst.first;
+        boolean currElemIsPrime = false;
+        if (lst.first > 1) { // 素数必须大于1
+            currElemIsPrime = Primes.isPrime(lst.first);
+            // 若是素数，平方当前元素
+            if (currElemIsPrime) {
+                lst.first *= lst.first;
+            }
         }
 
-        return currElemIsPrime || squarePrimes(lst.rest);
+        return currElemIsPrime || hasPrimeInRest;
     }
 }
